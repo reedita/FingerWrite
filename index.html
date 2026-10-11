@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111318">
+  <title>FINGERWRITE — Air Writing Notebook</title>
+
+  <link rel="stylesheet" href="style.css">
+
+<!-- Hand-tracking library -->
+<script
+  src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"
+  crossorigin="anonymous">
+</script>
+
+<!-- Your application -->
+<script src="main.js" defer></script>
+</head>
+
+<body>
+    <!-- Private camera input: never displayed to the user -->
+<video
+  id="cameraVideo"
+  autoplay
+  muted
+  playsinline
+  aria-hidden="true">
+</video>
+  <div class="app-shell">
+
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="FINGERWRITE home">
+        <span class="brand-icon">F</span>
+        <span>
+          <strong>FINGERWRITE</strong>
+          <small>YOUR SPACE TO THINK</small>
+        </span>
+      </a>
+
+      <div class="mode-status">
+        <span class="status-dot"></span>
+        <span id="modeLabel">Mouse mode</span>
+      </div>
+    </header>
+
+    <main class="main-layout">
+
+      <section class="workspace panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">YOUR WORKSPACE</p>
+            <h1>Write freely.</h1>
+            <p class="muted">Ideas don't need a keyboard.</p>
+          </div>
+
+          <button id="cameraButton" class="button button-primary">
+            <span aria-hidden="true">⌁</span>
+            Enable Air-Writing
+          </button>
+        </div>
+
+        <div class="canvas-wrap" id="canvasWrap">
+            <div id="fingerCursor" aria-hidden="true"></div>
+          <canvas
+            id="drawingCanvas"
+            aria-label="Digital writing canvas. Draw using your mouse or touchpad."
+          ></canvas>
+
+          <div class="canvas-hint" id="canvasHint">
+            <span class="hint-icon">✎</span>
+            <strong>Your blank page awaits.</strong>
+            <span>Click and drag to start drawing.</span>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="tool-group">
+            <span class="tool-label">INK</span>
+
+            <button class="color-button selected"
+              data-color="#202124"
+              style="--ink-color:#202124"
+              aria-label="Black ink"
+              aria-pressed="true"></button>
+
+            <button class="color-button"
+              data-color="#4F8DF7"
+              style="--ink-color:#4F8DF7"
+              aria-label="Blue ink"
+              aria-pressed="false"></button>
+
+            <button class="color-button"
+              data-color="#E45B5B"
+              style="--ink-color:#E45B5B"
+              aria-label="Red ink"
+              aria-pressed="false"></button>
+
+            <button class="color-button"
+              data-color="#239B75"
+              style="--ink-color:#239B75"
+              aria-label="Green ink"
+              aria-pressed="false"></button>
+
+            <button class="color-button"
+              data-color="#9562D9"
+              style="--ink-color:#9562D9"
+              aria-label="Purple ink"
+              aria-pressed="false"></button>
+          </div>
+
+          <div class="tool-group thickness-group">
+            <label class="tool-label" for="thicknessSelect">
+              SIZE
+            </label>
+
+            <select id="thicknessSelect" aria-label="Ink thickness">
+              <option value="2">Thin</option>
+              <option value="4" selected>Medium</option>
+              <option value="8">Thick</option>
+            </select>
+          </div>
+
+          <div class="tool-group history-group">
+            <button id="undoButton" class="icon-button"
+              aria-label="Undo" title="Undo" disabled>↶</button>
+            <button id="redoButton" class="icon-button"
+              aria-label="Redo" title="Redo" disabled>↷</button>
+            <button id="eraserButton" class="icon-button"
+              aria-label="Toggle eraser" title="Eraser"
+              aria-pressed="false">⌫</button>
+          </div>
+        </div>
+
+        <div class="canvas-footer">
+          <span id="canvasMessage" role="status" aria-live="polite">
+            Ready to draw
+          </span>
+
+          <div class="footer-actions">
+            <button id="clearButton" class="button button-quiet">
+              Clear
+            </button>
+            <button id="exportButton" class="button button-primary">
+              Export PNG ↗
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="notebook panel">
+        <div class="notebook-heading">
+          <div>
+            <p class="eyebrow">YOUR COLLECTION</p>
+            <h2>Notebook <span id="noteCount">0</span></h2>
+          </div>
+
+          <button id="newNoteButton" class="button button-primary">
+            + New note
+          </button>
+        </div>
+
+        <div class="note-list" id="noteList">
+          <!-- JavaScript will render saved notes here. -->
+        </div>
+
+        <div class="note-editor">
+          <label for="noteTitle">NOTE TITLE</label>
+          <input
+            id="noteTitle"
+            type="text"
+            maxlength="100"
+            placeholder="Give your note a name..."
+          >
+
+          <label for="noteContent">YOUR THOUGHTS</label>
+          <textarea
+            id="noteContent"
+            rows="7"
+            placeholder="Write your ideas here..."
+          ></textarea>
+
+          <div class="note-actions">
+            <button id="deleteNoteButton" class="button button-quiet">
+              Delete
+            </button>
+            <button id="saveNoteButton" class="button button-primary">
+              Save note
+            </button>
+          </div>
+
+          <p id="noteMessage" class="muted" role="status"
+            aria-live="polite">
+            Notes are stored on this device.
+          </p>
+        </div>
+      </aside>
+
+    </main>
+
+    <footer class="app-footer">
+      <span>Made for ideas, not distractions.</span>
+      <span>Private by design · Local storage</span>
+    </footer>
+
+  </div>
+</body>
+</html>
