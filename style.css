@@ -551,8 +551,6 @@ h2 {
     flex-direction: column;
   }
 }
-
-/* Camera input: functional, but never visible */
 #cameraVideo {
   position: fixed;
   width: 1px;
@@ -563,7 +561,6 @@ h2 {
   pointer-events: none;
 }
 
-/* Fingertip position indicator */
 #fingerCursor {
   display: none;
   position: absolute;
@@ -581,8 +578,122 @@ h2 {
 #fingerCursor.visible {
   display: block;
 }
-
 #cameraButton.camera-active {
   background: #f07878;
   color: #251313;
+}
+.recognition-panel {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recognition-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.recognition-hint {
+  margin: 4px 0 0;
+  font-size: 11px;
+}
+
+#recognizedText {
+  width: 100%;
+  min-height: 70px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #14161c;
+  color: var(--text);
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+#recognizedText::placeholder {
+  color: #777d89;
+}
+
+.recognition-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 0;
+  align-items: center;
+}
+
+.suggestions-label {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-right: 4px;
+}
+
+.suggestion-chip {
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--panel-hover);
+  color: var(--text);
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.suggestion-chip:hover {
+  background: #2c3140;
+  border-color: var(--accent);
+}
+
+.suggestion-spell {
+  border-color: #4b5a3a;
+}
+
+.recognition-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.recognition-footer .muted {
+  font-size: 11px;
+  margin: 0;
+}
+
+.recognition-actions {
+  display: flex;
+  gap: 8px;
+}
+
+#fingerCursor.down {
+  width: 18px;
+  height: 18px;
+  background: #f07878;
+  border-color: #251313;
+  box-shadow: 0 0 0 3px rgb(240 120 120 / 25%);
+}
+
+#trackingDebug {
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.7);
+  color: #b9f28c;
+  font-family: monospace;
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  pointer-events: none;
+  white-space: pre;
+  line-height: 1.4;
 }
