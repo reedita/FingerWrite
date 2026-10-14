@@ -9,18 +9,15 @@
 
   <link rel="stylesheet" href="style.css">
 
-<!-- Hand-tracking library -->
 <script
   src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"
   crossorigin="anonymous">
 </script>
 
-<!-- Your application -->
 <script src="main.js" defer></script>
 </head>
 
 <body>
-    <!-- Private camera input: never displayed to the user -->
 <video
   id="cameraVideo"
   autoplay
@@ -146,6 +143,49 @@
               Export PNG ↗
             </button>
           </div>
+        </div>
+        <div class="recognition-panel">
+          <div class="recognition-header">
+            <div>
+              <p class="eyebrow">HANDWRITING TO TEXT</p>
+              <p class="muted recognition-hint">Write separate block letters, then pause. Your word is typed on the canvas.</p>
+            </div>
+            <label class="tool-label">
+              <input type="checkbox" id="recognizeToggle" checked> AUTO
+            </label>
+          </div>
+          <textarea id="recognizedText" placeholder="Recognized text appears here..."></textarea>
+          <div class="recognition-suggestions" id="suggestions"></div>
+          <div class="recognition-footer">
+            <span class="muted" id="recognitionStatus">Waiting for writing</span>
+            <div class="recognition-actions">
+              <button id="addToNoteButton" class="button button-quiet">Add to note</button>
+            </div>
+          </div>
+        </div>
+        <div class="recognition-panel">
+          <div class="recognition-header">
+            <div>
+              <p class="eyebrow">TEACH IT YOUR HANDWRITING</p>
+              <p class="muted recognition-hint">One-time setup. Turn on training, write the letter shown, then pause.</p>
+            </div>
+            <label class="tool-label"><input type="checkbox" id="trainToggle"> TRAINING</label>
+          </div>
+          <div class="recognition-footer">
+            <select id="trainSet" aria-label="Letter set"
+              style="padding:8px;color:#f2f4f7;background:#252933;border:1px solid #343843;border-radius:8px">
+              <option value="ABCDEFGHIJKLMNOPQRSTUVWXYZ">A–Z</option>
+              <option value="abcdefghijklmnopqrstuvwxyz">a–z</option>
+              <option value="0123456789">0–9</option>
+            </select>
+            <span id="trainPrompt" style="font-size:32px;font-weight:800;color:#b9f28c;min-width:40px;text-align:center"></span>
+            <div class="recognition-actions">
+              <button id="trainSaveButton" class="button button-primary">Save now</button>
+              <button id="trainBackButton" class="button button-quiet">Back</button>
+              <button id="trainResetButton" class="button button-quiet">Reset all</button>
+            </div>
+          </div>
+          <span class="muted" id="trainStatus"></span>
         </div>
       </section>
 
